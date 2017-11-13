@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 
 public class Player {
 
-    static final String VERSION = "SEM Java folding player Version 0.0.4";
+    static final String VERSION = "SEM Java folding player Version 0.0.5";
 
     public static int betRequest(JsonElement request) {
         System.out.println("betRequest: " + request);
@@ -24,7 +24,7 @@ public class Player {
                 bets += bet;
             }
         }
-        return current_buy_in - bets + minimum_raise;
+        return current_buy_in - bets + minimum_raise + 1;
     }
 
     public static void showdown(JsonElement game) {
