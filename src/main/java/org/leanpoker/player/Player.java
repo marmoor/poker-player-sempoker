@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Player {
 
-    static final String VERSION = "SEM Java folding player Version 0.0.18";
+    static final String VERSION = "SEM Java folding player Version 0.0.19";
     public static final String SEMPOKER = "sempoker";
     public static final String ACTIVE = "active";
 
@@ -69,13 +69,7 @@ public class Player {
         if (myStack > maxActiveStack || maxIdentical >= 2 || (goodCards.contains(hole1) && goodCards.contains(hole2))) {
             return myStack;
         } else {
-            if (activePlayers == 2) {
-                return current_buy_in - myBet;
-            } else if (activePlayers == 1) {
-                return current_buy_in - myBet;
-            } else {
-                return 0;
-            }
+            return 0;
         }
     }
 
