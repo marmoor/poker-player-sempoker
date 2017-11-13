@@ -1,16 +1,15 @@
 package org.leanpoker.player;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 public class Player {
 
     static final String VERSION = "SEM Java folding player Version 0.0.6";
 
     public static int betRequest(JsonElement request) {
-        System.out.println("betRequest: " + request);
+        return 10;
 
+        /*
         JsonObject jsonObject = request.getAsJsonObject();
         int current_buy_in = jsonObject.get("current_buy_in").getAsInt();
         int minimum_raise = jsonObject.get("minimum_raise").getAsInt();
@@ -27,9 +26,9 @@ public class Player {
         }
 //        return current_buy_in - bets + minimum_raise + 1;
         return current_buy_in + 10;
+        */
     }
 
     public static void showdown(JsonElement game) {
-        System.out.println("showdown: " + game);
     }
 }
