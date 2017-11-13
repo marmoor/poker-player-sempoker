@@ -5,11 +5,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Player {
 
-    static final String VERSION = "SEM Java folding player Version 0.0.14";
+    static final String VERSION = "SEM Java folding player Version 0.0.15";
     public static final String SEMPOKER = "sempoker";
     public static final String ACTIVE = "active";
 
@@ -38,9 +40,24 @@ public class Player {
             }
         }
 
+        Map<String, Integer> values = new HashMap<>();
+        add2map(hole1, values);
+        add2map(hole2, values);
+        for (JsonElement cardElement : jsonObject.get("community_cards").getAsJsonArray()) {
+            String rank = cardElement.getAsJsonObject().get("rank").getAsString();
+            add2map(rank, values);
+        }
+        int maxIdentical = 0;
+        for (String key : values.keySet()) {
+            if (values.get(key) > maxIdentical) {
+                maxIdentical = values.get(key);
+            }
+        }
+
+
         // 10 and J,Q,K,A
         List<String> goodCards = Arrays.asList(new String[]{"10", "J", "Q", "K", "A"});
-        if (goodCards.contains(hole1) && goodCards.contains(hole2)) {
+        if (maxIdentical >= 0 || (goodCards.contains(hole1) && goodCards.contains(hole2))) {
             return myStack;
         } else {
             return 0;
@@ -53,6 +70,15 @@ public class Player {
 //        return result;
     }
 
+    private static void add2map(String hole1, Map<String, Integer> values) {
+        if (!values.containsKey(hole1)) {
+            values.put(hole1, 1);
+        } else {
+            values.put(hole1, values.get(hole1) + 1);
+        }
+    }
+
     public static void showdown(JsonElement game) {
     }
+
 }

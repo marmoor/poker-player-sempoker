@@ -60,7 +60,7 @@ public class PlayerTest {
                 "        },\n" +
                 "        {\n" +
                 "            \"id\": 1,                                // Your own player looks similar, with one extension.\n" +
-                "            \"name\": \"Bob\",\n" +
+                "            \"name\": \"sempoker\",\n" +
                 "            \"status\": \"active\",\n" +
                 "            \"version\": \"Default random player\",\n" +
                 "            \"stack\": 1590,\n" +
