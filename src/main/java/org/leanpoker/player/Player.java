@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 
 public class Player {
 
-    static final String VERSION = "SEM Java folding player Version 0.0.10";
+    static final String VERSION = "SEM Java folding player Version 0.0.11";
     public static final String SEMPOKER = "sempoker";
     public static final String ACTIVE = "active";
 
@@ -33,7 +33,7 @@ public class Player {
         }
 
         int result = 0;
-        if (orbits <= 2) {
+        if (orbits <= 1) {
             result = 0;
         } else {
             result = myStack;
