@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 
 public class Player {
 
-    static final String VERSION = "SEM Java folding player Version 0.0.12";
+    static final String VERSION = "SEM Java folding player Version 0.0.13";
     public static final String SEMPOKER = "sempoker";
     public static final String ACTIVE = "active";
 
@@ -17,22 +17,29 @@ public class Player {
         int orbits = jsonObject.get("orbits").getAsInt();
 
         JsonArray players = jsonObject.get("players").getAsJsonArray();
-        int bets = 0;
+        int myBet = 0;
         int myStack = 0;
+        String hole1;
+        String hole2;
         for (JsonElement player : players) {
             JsonObject playerAsJsonObject = player.getAsJsonObject();
             String status = playerAsJsonObject.get("status").getAsString();
             String name = playerAsJsonObject.get("name").getAsString();
             int bet = playerAsJsonObject.get("bet").getAsInt();
-            if (!name.equals(SEMPOKER) && status.equals(ACTIVE)) {
-                bets += bet;
-            }
             if (name.equals(SEMPOKER)) {
+                myBet = playerAsJsonObject.get("bet").getAsInt();
                 myStack = playerAsJsonObject.get("stack").getAsInt();
+                JsonArray hole_cards = playerAsJsonObject.getAsJsonArray("hole_cards");
+                hole1 = hole_cards.get(0).getAsJsonObject().get("rank").getAsString();
+                hole2 = hole_cards.get(1).getAsJsonObject().get("rank").getAsString();
             }
         }
 
-        return myStack;
+        int result = 0;
+        result = current_buy_in - myBet + minimum_raise;
+
+
+        return result;
     }
 
     public static void showdown(JsonElement game) {
