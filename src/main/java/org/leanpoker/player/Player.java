@@ -2,14 +2,12 @@ package org.leanpoker.player;
 
 import com.google.gson.JsonElement;
 
-import java.util.Map;
-
 public class Player {
 
-    static final String VERSION = "Default Java folding player";
+    static final String VERSION = "SEM Java folding player Version 0.0.1";
 
     public static int betRequest(JsonElement request) {
-        return 0;
+        return 1;
     }
 
     public static void showdown(JsonElement game) {
