@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Player {
 
-    static final String VERSION = "SEM Java folding player Version 0.0.17";
+    static final String VERSION = "SEM Java folding player Version 0.0.18";
     public static final String SEMPOKER = "sempoker";
     public static final String ACTIVE = "active";
 
@@ -27,6 +27,7 @@ public class Player {
         String hole1 = "";
         String hole2 = "";
         int maxActiveStack = 0;
+        int activePlayers = 0;
         for (JsonElement player : players) {
             JsonObject playerAsJsonObject = player.getAsJsonObject();
             String status = playerAsJsonObject.get("status").getAsString();
@@ -40,6 +41,7 @@ public class Player {
                 hole2 = hole_cards.get(1).getAsJsonObject().get("rank").getAsString();
             } else {
                 if (status.equals("active")) {
+                    activePlayers++;
                     int stack = playerAsJsonObject.get("stack").getAsInt();
                     if (stack > maxActiveStack) {
                         maxActiveStack = stack;
@@ -62,20 +64,19 @@ public class Player {
             }
         }
 
-
         // 10 and J,Q,K,A
         List<String> goodCards = Arrays.asList(new String[]{"9", "10", "J", "Q", "K", "A"});
         if (myStack > maxActiveStack || maxIdentical >= 2 || (goodCards.contains(hole1) && goodCards.contains(hole2))) {
             return myStack;
         } else {
-            return 0;
+            if (activePlayers == 2) {
+                return current_buy_in - myBet;
+            } else if (activePlayers == 1) {
+                return current_buy_in - myBet;
+            } else {
+                return 0;
+            }
         }
-
-        //    int result = 0;
-        //      result = current_buy_in - myBet + minimum_raise;
-
-
-//        return result;
     }
 
     private static void add2map(String hole1, Map<String, Integer> values) {
