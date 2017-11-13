@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 
 public class Player {
 
-    static final String VERSION = "SEM Java folding player Version 0.0.5";
+    static final String VERSION = "SEM Java folding player Version 0.0.6";
 
     public static int betRequest(JsonElement request) {
         System.out.println("betRequest: " + request);
@@ -19,12 +19,14 @@ public class Player {
         for (JsonElement player : players) {
             JsonObject playerAsJsonObject = player.getAsJsonObject();
             String status = playerAsJsonObject.get("status").getAsString();
+            String name = playerAsJsonObject.get("name").getAsString();
             int bet = playerAsJsonObject.get("bet").getAsInt();
-            if (status.equals("active")) {
+            if (!name.equals("sempoker") && status.equals("active")) {
                 bets += bet;
             }
         }
-        return current_buy_in - bets + minimum_raise + 1;
+//        return current_buy_in - bets + minimum_raise + 1;
+        return current_buy_in + 10;
     }
 
     public static void showdown(JsonElement game) {
