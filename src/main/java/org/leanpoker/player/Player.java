@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Player {
 
-    static final String VERSION = "SEM Java folding player Version 0.0.15";
+    static final String VERSION = "SEM Java folding player Version 0.0.16";
     public static final String SEMPOKER = "sempoker";
     public static final String ACTIVE = "active";
 
@@ -26,6 +26,7 @@ public class Player {
         int myStack = 0;
         String hole1 = "";
         String hole2 = "";
+        int maxActiveStack = 0;
         for (JsonElement player : players) {
             JsonObject playerAsJsonObject = player.getAsJsonObject();
             String status = playerAsJsonObject.get("status").getAsString();
@@ -37,6 +38,13 @@ public class Player {
                 JsonArray hole_cards = playerAsJsonObject.getAsJsonArray("hole_cards");
                 hole1 = hole_cards.get(0).getAsJsonObject().get("rank").getAsString();
                 hole2 = hole_cards.get(1).getAsJsonObject().get("rank").getAsString();
+            } else {
+                if (status.equals("active")) {
+                    int stack = playerAsJsonObject.get("stack").getAsInt();
+                    if (stack > maxActiveStack) {
+                        maxActiveStack = stack;
+                    }
+                }
             }
         }
 
@@ -57,7 +65,7 @@ public class Player {
 
         // 10 and J,Q,K,A
         List<String> goodCards = Arrays.asList(new String[]{"10", "J", "Q", "K", "A"});
-        if (maxIdentical >= 0 || (goodCards.contains(hole1) && goodCards.contains(hole2))) {
+        if (myStack > maxActiveStack || maxIdentical >= 2 || (goodCards.contains(hole1) && goodCards.contains(hole2))) {
             return myStack;
         } else {
             return 0;
