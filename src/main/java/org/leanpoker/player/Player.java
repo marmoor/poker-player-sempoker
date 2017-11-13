@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 
 public class Player {
 
-    static final String VERSION = "SEM Java folding player Version 0.0.9";
+    static final String VERSION = "SEM Java folding player Version 0.0.10";
     public static final String SEMPOKER = "sempoker";
     public static final String ACTIVE = "active";
 
@@ -14,6 +14,8 @@ public class Player {
         JsonObject jsonObject = request.getAsJsonObject();
         int current_buy_in = jsonObject.get("current_buy_in").getAsInt();
         int minimum_raise = jsonObject.get("minimum_raise").getAsInt();
+        int orbits = jsonObject.get("orbits").getAsInt();
+
         JsonArray players = jsonObject.get("players").getAsJsonArray();
         int bets = 0;
         int myStack = 0;
@@ -30,7 +32,13 @@ public class Player {
             }
         }
 
-        return myStack / 2;
+        int result = 0;
+        if (orbits <= 2) {
+            result = 0;
+        } else {
+            result = myStack;
+        }
+        return result;
     }
 
     public static void showdown(JsonElement game) {
